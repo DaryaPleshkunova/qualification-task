@@ -1,0 +1,12 @@
+// Цвет текста
+$text_main: #000;
+$text_additional: lighten($text_main, 40);
+// Цвет обводки карточек
+$card-border_color_default: #1698d9;
+$card-border_color_default-hover: #2ea8e6;
+$card-border_color_selected: #d91667;
+$card-border_color_selected-hover: #e52e7a;
+$card-border_color_disabled: #b3b3b3;
+// Радиус скругления углов карточек
+$border-radius_external: 12px;
+$border-radius_internal: 8px;

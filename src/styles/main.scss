@@ -1,0 +1,303 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '_fonts.scss';
+
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  min-height: 570px;
+  background-image: url("images/photos/desktop/pattern.jpg");
+  background-color: #333;
+
+  &::before {
+    content: "";
+    @include stretch;
+    position: fixed;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 5e-05) 49.88%, rgba(0, 0, 0, 0.5) 100%);
+  }
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px;
+  z-index: 2;
+}
+
+.main-heading {
+  font-family: "Exo2.0", sans-serif;
+  margin-bottom: 24px;
+  color: #fff;
+  font-size: 36px;
+  font-weight: 100;
+  text-align: center;
+}
+
+.catalog {
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
+
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 473px;
+  min-width: 312px;
+  padding: 19px 12px 12px 47px;
+  border-radius: 0 $border-radius_internal $border-radius_internal $border-radius_internal;
+  background-color: #f2f2f2;
+  background: linear-gradient(135deg, transparent 30px, #f2f2f2 0);
+  cursor: pointer;
+
+  &__border {
+    padding: 4px;
+    border-radius: 0 $border-radius_external $border-radius_external $border-radius_external;
+  }
+
+  &::before {
+    content: "";
+    @include stretch;
+    position: absolute;
+    background-image: url("images/png/cat.png");
+    background-position: -28px 205px;
+    background-repeat: no-repeat;
+    background-size: initial;
+    border-radius: 0 0 0 $border-radius_internal;
+  }
+
+  &__tagline {
+    margin-bottom: 11px;
+    font-size: 16px;
+    color: $text_additional;
+
+    &_refuse {
+      margin-bottom: 11px;
+      font-size: 16px;
+      color: $card-border_color_selected-hover
+    }
+  }
+
+  &__name {
+    font-size: 48px;
+    font-weight: 700;
+  }
+
+  &__ingredient {
+    display: block;
+    margin-top: 5px;
+    font-size: 24px;
+  }
+
+  &__features-list {
+    margin-top: 18px;
+  }
+
+  &__weight {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-end;
+    width: 80px;
+    height: 80px;
+    margin-top: auto;
+    padding-top: 3px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 21px;
+    transition: background-color ease-out .1s;
+
+    &-number {
+      font-size: 42px;
+    }
+  }
+
+  &__bottom-text {
+    display: block;
+    margin-top: 14px;
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  &__out-of-stock {
+    color: #ffff66;
+  }
+}
+
+.features-list {
+  color: $text_additional;
+  text-transform: lowercase;
+
+  &__item:not(:first-child) {
+    margin-top: 2px;
+  }
+}
+
+.buy-now {
+  display: block;
+
+  &__button {
+    margin-left: 2px;
+    background-color: transparent;
+    border-bottom: 1px dashed $card-border_color_default;
+    color: $card-border_color_default;
+  }
+}
+
+.default {
+  .product-card {
+    &__border {
+      background: linear-gradient(135deg, transparent 30px, $card-border_color_default 0);
+    }
+
+    &__tagline {
+      display: block;
+    }
+
+    &__weight {
+      background-color: $card-border_color_default;
+    }
+
+    &__tagline_refuse,
+    &__description,
+    &__out-of-stock {
+      display: none;
+    }
+  }
+}
+
+.default:hover {
+  .product-card {
+    &__border {
+      background: linear-gradient(135deg, transparent 30px, $card-border_color_default-hover 0);
+    }
+
+    &__weight {
+      background-color: $card-border_color_default-hover;
+    }
+
+    &__tagline {
+      display: block;
+    }
+
+    &__tagline_refuse {
+      display: none;
+    }
+  }
+}
+
+.selected {
+  .product-card {
+    &__border {
+      background: linear-gradient(135deg, transparent 30px, $card-border_color_selected 0);
+    }
+
+    &__tagline {
+      display: block;
+    }
+
+    &__tagline_refuse,
+    &__out-of-stock {
+      display: none;
+    }
+
+    &__weight {
+      background-color: $card-border_color_selected;
+    }
+
+    &__description {
+      display: block;
+    }
+  }
+
+  .buy-now {
+    display: none;
+  }
+}
+
+.selected-hover {
+  .product-card {
+    &__border {
+      background: linear-gradient(135deg, transparent 30px, $card-border_color_selected-hover 0);
+    }
+
+    &__tagline {
+      display: none;
+
+      &_refuse {
+        display: block;
+      }
+    }
+
+    &__weight {
+      background-color: $card-border_color_selected-hover;
+    }
+  }
+}
+
+.disabled {
+  .product-card {
+    filter: grayscale(0.8);
+    cursor: not-allowed;
+
+    &__border {
+      background: linear-gradient(135deg, transparent 30px, $card-border_color_disabled 0);
+    }
+
+    &__weight {
+      background-color: $card-border_color_disabled;
+    }
+
+    &__tagline_refuse,
+    &__description {
+      display: none;
+    }
+  }
+
+  .buy-now {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .catalog__list {
+    justify-content: space-around;
+  }
+
+  .catalog__list-item:nth-child(3) {
+    margin: 20px 40px 0;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .catalog__list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .catalog__list-item:not(:first-child) {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 374px) {
+  .product-card {
+    min-width: 270px;
+    padding: 21px 16px 16px 20px;
+  }
+}

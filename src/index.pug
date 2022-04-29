@@ -1,0 +1,69 @@
+doctype html
+html(lang="ru")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Нямушка
+    link(rel="shortcut icon", href="images/png/favicon.png", type="image/x-icon")
+    link(rel="stylesheet", href="styles.css")
+
+    link(rel="preload", href="fonts/exo2_0-thin.woff2", as="font")
+    link(rel="preload", href="fonts/exo2_0-thin.woff", as="font")
+
+    script(src="script.js", defer)
+  body.body
+    - var products = [{ingredient: "с фуа-гра", state: "default", flavor: "foie-gras", id: "foie-gras", checked: false, quantity: "10", gift: "1", weight: "0,5", description: "Печень утки разварная с артишоками", outOfStock: "с фуа-гра",},{ingredient: "с рыбой", state: "selected", flavor: "fish", id: "fish", checked: true, quantity: "40", gift: "2", weight: "2", description: "Головы щучьи с чесноком да свежайшая сёмгушка", outOfStock: "с рыбой",},{ingredient: "с курой", state: "disabled", flavor: "chicken", id: "chicken", checked: false, quantity: "100", gift: "5", weight: "5", review: "Заказчик доволен", description: "Филе из цыплят с трюфелями в бульоне", outOfStock: "с курой",}]
+
+    main.container
+      h1.main-heading Ты сегодня покормил кота?
+
+      form.catalog#form(action="https://jsonplaceholder.typicode.com/posts", method="post")
+        ul.catalog__list
+          each product in products
+            li.catalog__list-item(class= product.state)
+              input.checkbox_hidden(type="checkbox", name= product.flavor, id= product.id, checked= product.checked)
+
+              .product-card__border
+                article.product-card
+                  span.product-card__tagline Сказочное заморское яство
+                  span.product-card__tagline_refuse Котэ не одобряет?
+
+                  h2.product-card__name Нямушка
+                    span.product-card__ingredient  #{product.ingredient}
+
+                  ul.features-list.product-card__features-list
+                    case product.quantity
+                      when "1"
+                        li.features-list__item
+                          <span class="font_bold"> #{product.quantity} </span> порция
+                      when "2"
+                        li.features-list__item
+                          <span class="font_bold"> #{product.quantity} </span> порции
+                      default
+                        li.features-list__item
+                          <span class="font_bold"> #{product.quantity} </span> порций
+
+                    case product.gift
+                      when "1"
+                        li.features-list__item Мышь в подарок
+                      when "2"
+                      when "3"
+                      when "4"
+                        li.features-list__item
+                          <span class="font_bold"> #{product.gift} </span> мыши в подарок
+                      default
+                        li.features-list__item
+                          <span class="font_bold"> #{product.gift} </span> мышей в подарок
+
+                    li.features-list__item= product.review
+
+                  div.product-card__weight
+                    <div class="product-card__weight-number"> #{product.weight} </div> кг
+
+              span.product-card__bottom-text.buy-now Чего сидишь? Порадуй котэ,
+                button.buy-now__button купи
+
+              span.product-card__bottom-text.product-card__description= product.description
+
+              span.product-card__bottom-text.product-card__out-of-stock Печалька, #{product.outOfStock} закончился
